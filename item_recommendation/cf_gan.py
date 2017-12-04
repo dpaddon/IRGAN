@@ -153,7 +153,7 @@ def main():
     #config.gpu_options.allow_growth = True
     #sess = tf.Session(config=config)
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333) #ali changed
-    sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) #ali changed
+    sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options, log_device_placement=True)) #ali changed
     sess.run(tf.global_variables_initializer())
 
     print("gen ", simple_test(sess, generator))
@@ -161,7 +161,7 @@ def main():
 
     dis_log = open(workdir + 'dis_log.txt', 'w')
     gen_log = open(workdir + 'gen_log.txt', 'w')
-
+with('/device:GPU:2')
     # minimax training
     best = 0.
     for epoch in range(15):
