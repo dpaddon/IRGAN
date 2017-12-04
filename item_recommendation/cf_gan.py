@@ -149,9 +149,11 @@ def main():
     discriminator = DIS(ITEM_NUM, USER_NUM, EMB_DIM, lamda=0.1 / BATCH_SIZE, param=None, initdelta=INIT_DELTA,
                         learning_rate=0.001)
 
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
+    #config = tf.ConfigProto()
+    #config.gpu_options.allow_growth = True
+    #sess = tf.Session(config=config)
+    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333) #ali changed
+    sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) #ali changed
     sess.run(tf.global_variables_initializer())
 
     print("gen ", simple_test(sess, generator))
