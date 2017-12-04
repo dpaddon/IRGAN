@@ -152,8 +152,9 @@ def main():
     #config = tf.ConfigProto()
     #config.gpu_options.allow_growth = True
     #sess = tf.Session(config=config)
-    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333) #ali changed
-    sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options, log_device_placement=True)) #ali changed
+    config=tf.ConfigProto(log_device_placement=True) #ali changed
+    config.gpu_options.per_process_gpu_memory_fraction = 0.4
+    sess = tf.Session(config=config) #ali changed
     sess.run(tf.global_variables_initializer())
 
     print("gen ", simple_test(sess, generator))
@@ -161,7 +162,7 @@ def main():
 
     dis_log = open(workdir + 'dis_log.txt', 'w')
     gen_log = open(workdir + 'gen_log.txt', 'w')
-with('/device:GPU:2')
+
     # minimax training
     best = 0.
     for epoch in range(15):
@@ -182,8 +183,8 @@ with('/device:GPU:2')
                     index += BATCH_SIZE
 
                     _ = sess.run(discriminator.d_updates,
-                                 feed_dict={discriminator.u: input_user, discriminator.i: input_item,
-                                            discriminator.label: input_label})
+                                 feed_dict={tf.placeholder(tf.int32): input_user, tf.placeholder(tf.int32): input_item,
+                                            tf.placeholder(tf.float32): input_label})
 
             # Train G
             for g_epoch in range(50):  # 50
