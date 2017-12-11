@@ -103,22 +103,6 @@ def main():
     if args.verbose:
         plt.show()
 
-    # pdf = matplotlib.backends.backend_pdf.PdfPages("output.pdf")
-    # for f in range(1, fig.number):  # will open an empty extra figure :(
-    #     pdf.savefig(f)
-    # pdf.close()
-
-# embeddings = pkl.load(open('model_dns_ori.pkl', 'rb'), encoding='latin1')
-#
-# embeddings = np.asanyarray(embeddings)
-#
-# embeddings
-#
-#
-# print(embeddings[0].shape)
-# print(embeddings[1].shape)
-# print(embeddings[2].shape)
-
 
 if __name__ == "__main__":
     main()
