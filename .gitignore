@@ -1,1 +1,4 @@
 *.pyc
+*.txt
+*.pkl
+*.png
