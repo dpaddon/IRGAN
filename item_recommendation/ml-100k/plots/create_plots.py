@@ -1,4 +1,3 @@
-
 import sys
 import argparse
 import matplotlib.pyplot as plt
@@ -28,43 +27,38 @@ def main():
         parser.print_help()
         sys.exit()
 
-    gen_model_output = '../gen_log.txt'
-    results = [[] for i in range(15)]
-    epochs_num = 0
-    with open(gen_model_output) as f:
-        for line in f:
-            epoch, p_3, p_5, p_10, ndcg_3, ndcg_5, ndcg_10 = line.strip().split('\t')
-            results[int(epoch)].append(
-                [p_3, p_5, p_10, ndcg_3, ndcg_5, ndcg_10])
-    # content
-    results = np.asarray(results)
-    results = results[:, -1, :]
 
-    results_p3 = results[:, 0]
-    results_p5 = results[:, 1]
-    results_p10 = results[:, 2]
-    results_ndcg3 = results[:, 3]
-    results_ndcg5 = results[:, 4]
-    results_ndcg10 = results[:, 5]
+    gen_model_output = '../gen_log.txt'
+    results = np.loadtxt(gen_model_output)
+
+    results_p3 = results[:, 1]
+    results_p5 = results[:, 2]
+    results_p10 = results[:, 3]
+    results_ndcg3 = results[:, 4]
+    results_ndcg5 = results[:, 5]
+    results_ndcg10 = results[:, 6]
+
 
     fig = plt.figure(figsize=plt.figaspect(0.3), dpi=args.dpi)
+    xlabel = "Generator Training Epoch"
+
     ax = fig.add_subplot(1, 3, 1)
     ax.set_ylabel("Precision @ 3")
-    ax.set_xlabel("Training Epoch")
+    ax.set_xlabel(xlabel)
     ax.plot(results_p3, color='blue')
     ax.grid(True, which='both', ls='dotted')
     ax.set_aspect(1. / ax.get_data_ratio())
 
     ax = fig.add_subplot(1, 3, 2)
     ax.set_ylabel("Precision @ 5")
-    ax.set_xlabel("Training Epoch")
+    ax.set_xlabel(xlabel)
     ax.plot(results_p5, color='blue')
     ax.grid(True, which='both', ls='dotted')
     ax.set_aspect(1. / ax.get_data_ratio())
 
     ax = fig.add_subplot(1, 3, 3)
     ax.set_ylabel("Precision @ 10")
-    ax.set_xlabel("Training Epoch")
+    ax.set_xlabel(xlabel)
     ax.plot(results_p10, color='blue')
     ax.grid(True, which='both', ls='dotted')
     ax.set_aspect(1. / ax.get_data_ratio())
@@ -78,21 +72,21 @@ def main():
     fig = plt.figure(figsize=plt.figaspect(0.3), dpi=args.dpi)
     ax = fig.add_subplot(1, 3, 1)
     ax.set_ylabel("NDCG @ 3")
-    ax.set_xlabel("Training Epoch")
+    ax.set_xlabel(xlabel)
     ax.plot(results_ndcg3, color='blue')
     ax.grid(True, which='both', ls='dotted')
     ax.set_aspect(1. / ax.get_data_ratio())
 
     ax = fig.add_subplot(1, 3, 2)
     ax.set_ylabel("NDCG @ 5")
-    ax.set_xlabel("Training Epoch")
+    ax.set_xlabel(xlabel)
     ax.plot(results_ndcg5, color='blue')
     ax.grid(True, which='both', ls='dotted')
     ax.set_aspect(1. / ax.get_data_ratio())
 
     ax = fig.add_subplot(1, 3, 3)
     ax.set_ylabel("NDCG @ 10")
-    ax.set_xlabel("Training Epoch")
+    ax.set_xlabel(xlabel)
     ax.plot(results_ndcg10, color='blue')
     ax.grid(True, which='both', ls='dotted')
     ax.set_aspect(1. / ax.get_data_ratio())
