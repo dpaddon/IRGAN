@@ -1,7 +1,3 @@
 # IRGAN
 
-This repository hosts the experimental code for SIGIR 2017 paper "IRGAN: A Minimax Game for Unifying Generative and Discriminative Information Retrieval Models".
-
-More detailed instructions will be provided soon.
-
-For any questions, you can report issue here.
+This repository contains the IRGAN code to accompany our group submission for the COMPGI23 Intro to Deep Learning module. This was initially cloned from https://github.com/geek-ai/irgan, and the version here is the original code ported to Python 3.
